@@ -10,30 +10,35 @@ function App() {
   const [recipes, setRecipes] = useState([]);
 
   const getRecipes = async () => {
-    const response = await fetch(exampleReq)
-    const data = await response.json()
+    const response = await fetch(exampleReq);
+    const data = await response.json();
     console.log(data.hits);
-    setRecipes(data.hits)
-  }  
-  
+    setRecipes(data.hits);
+  };
+
   useEffect(() => {
-    getRecipes()
-  }, [])
+    getRecipes();
+  }, []);
 
-
-  return ( 
+  return (
     <div className="App">
       <form action="" className="search-form">
         <input type="text" className="search-bar" />
-        <button type="submit" className="search-button">Search</button>
+        <button type="submit" className="search-button">
+          Search
+        </button>
       </form>
-      
-      {recipes.map((recipe) => (
-        <Recipe />
-      ))}
 
+      {recipes.map((recipe) => (
+        <Recipe
+          key={recipe.recipe.label}
+          title={recipe.recipe.label}
+          calories={recipe.recipe.calories}
+          image={recipe.recipe.image}
+        />
+      ))}
     </div>
-  )
+  );
 }
 
 export default App;
