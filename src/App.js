@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import Recipe from "./Recipe";
 
 function App() {
   const APP_ID = "364d5953";
@@ -11,14 +12,14 @@ function App() {
   const getRecipes = async () => {
     const response = await fetch(exampleReq)
     const data = await response.json()
-    // console.log(data);
-    setRecipes(recipes.hits)
+    console.log(data.hits);
+    setRecipes(data.hits)
   }  
   
   useEffect(() => {
     getRecipes()
   }, [])
-  
+
 
   return ( 
     <div className="App">
@@ -26,6 +27,11 @@ function App() {
         <input type="text" className="search-bar" />
         <button type="submit" className="search-button">Search</button>
       </form>
+      
+      {recipes.map((recipe) => (
+        <Recipe />
+      ))}
+
     </div>
   )
 }
